@@ -13,14 +13,14 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - dependencies_circle_demo
+            - dependencies_circle_demo_1
       - run:
           name: Install
           command: yarn install
       - save_cache:
           paths:
             - node_modules
-          key: dependencies_circle_demo
+          key: dependencies_circle_demo_1
       - run:
           name: Build
           command: yarn build

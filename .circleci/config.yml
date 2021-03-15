@@ -11,11 +11,22 @@ jobs:
           fingerprints:
             - "0c:27:f4:42:c6:ab:3e:cf:3c:09:f3:d1:2c:62:92:6b"
       - checkout
-      - run: echo "A first hello"
-      - run: npm -v
+      - restore_cache:
+          keys:
+            - dependencies_circle_demo
       - run:
           name: Install
           command: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies_circle_demo
       - run:
           name: Build
           command: yarn build
+      - run:
+          name: Prepare shell commands
+          command: chmod +x scripts/deploy.sh
+      - run:
+          name: Run Deploy to Github pages
+          command: ./scripts/deploy.sh
